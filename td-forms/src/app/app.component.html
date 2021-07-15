@@ -1,0 +1,77 @@
+<div class="container">
+  <div class="row">
+    <h2>Template Driven Form</h2>
+    <div class="col-xs-12 col-sm-10 col-md-8 col-sm-offset-1 col-md-offset-2">
+      <form #userForm="ngForm" (ngSubmit)="onFormSubmit(userForm)">
+        <div class="form-group">
+          <label for="email">Email ID:</label>
+          <input
+            type="email"
+            class="form-control"
+            name="email"
+            email
+            required
+            ngModel
+            #email="ngModel"
+          >
+        </div>
+        <span *ngIf="!email.valid && email.touched" class="help-block">
+          Please enter a valid email id!
+        </span>
+
+        <div class="form-group">
+          <label for="subscription">Subscription:</label>
+          <select
+            [ngModel]="defaultDropdown"
+            name="subscription"
+            class="form-control"
+          >
+            <option *ngFor="let opt of dropdownOptions" [value]="opt.value">
+              {{opt.name}}
+            </option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="password">Password:</label>
+          <input
+            type="password"
+            class="form-control"
+            name="password"
+            required
+            ngModel
+            minlength="6"
+            #password="ngModel"
+          >
+          <span *ngIf="!password.valid && password.touched" class="help-block">
+            Password field is mandatory!
+          </span>
+        </div>
+
+        <button type="submit" class="btn btn-warning">Submit</button>
+
+        <span *ngIf="!userForm.valid && userForm.touched" class="help-block">
+          Form is invalid
+        </span>
+
+        <div *ngIf="isFormSubmitted" class="user-details">
+          <p>{{userForm.value.email}}</p>
+          <p>{{userForm.value.subscription}}</p>
+          <p>{{userForm.value.password}}</p>
+        </div>
+      </form>
+      <!-- Add a Form with the following Inputs (and Validators)
+           1) Mail address (should not be empty and should be an email address)
+           2) A Dropdown which allows the user to select from three different Subscriptions ("Basic", "Advanced", "Pro")
+              Set "Advanced" as Default
+           3) A Password field (should not be empty)
+           4) A Submit Button
+
+           Display a warning message if the Form is invalid AND was touched. Display a warning message below each input if it's invalid.
+
+           Upon submitting the form, you should simply print the Value of the Form to the Console.
+           Optionally, display it in your template.
+      -->
+    </div>
+  </div>
+</div>
